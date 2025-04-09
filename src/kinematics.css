@@ -6,8 +6,8 @@
   }
   
   .kinematics-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #c58787;
+    border: 1px solid #e74e4e;
     padding: 20px;
     text-align: center;
     font-size: 16px;
@@ -17,4 +17,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     height: 100px; /* Set a fixed height for the boxes */
+  }
+  body {
+    font-family: 'Arial', sans-serif; /* Use a clean and readable font */
   }

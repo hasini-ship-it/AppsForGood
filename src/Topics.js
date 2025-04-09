@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 function Topics() {
   const navigate = useNavigate();
   return (
+    //home button
     <div style={{ position: 'relative', height: '100vh', textAlign: 'center', backgroundColor: '#f0f0f0' }}>
       <h1>Topics Page</h1>
       <button
@@ -18,6 +19,7 @@ function Topics() {
       >
         Home
       </button>
+
       <button
         style={{
           marginTop: '20%',
@@ -29,6 +31,7 @@ function Topics() {
         Kinematics
       </button>
     </div>
+    
   );
 }
 
