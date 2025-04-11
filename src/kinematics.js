@@ -33,7 +33,7 @@ function Kinematics() {
   };
 
   return (
-    <div style={{ position: 'relative', backgroundColor: '#f0f0f0', padding: '20px', overflow: 'auto' }}>
+    <div style={{ position: 'relative', backgroundColor: '#fbedff', padding: '20px', overflow: 'auto' }}>
       {/* Back Button */}
       <button
         style={{
@@ -49,8 +49,11 @@ function Kinematics() {
       </button>
 
       {/* Intro Paragraph */}
-      <p style={{ textAlign: 'center', fontSize: '30px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
-        Kinematics is the branch of physics that deals with the motion of objects without considering the forces that cause the motion.
+      <p style={{ textAlign: 'center', fontSize: '40px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
+        Kinematics
+      </p>
+      <p style={{ textAlign: 'center', fontSize: '25px', marginTop: '75px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
+        Kinematics is the branch of physics that deals with how objects move without considering the mass of objects or the forces acting on them. This lesson focuses on introducing you to the basics of kinematics and getting you comfortable with terms which will both be built on in firther lessons. Below are the first set of terms.
       </p>
 
       {/* Flippable Cards Grid */}
@@ -90,7 +93,7 @@ function Kinematics() {
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#ffffff',
+                  backgroundColor: '#a68bad',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   display: 'flex',
@@ -111,7 +114,7 @@ function Kinematics() {
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#dfefff',
+                  backgroundColor: '#e3cfe8',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   transform: 'rotateY(180deg)',
@@ -130,7 +133,6 @@ function Kinematics() {
           </div>
         ))}
       </div>
-    </div>)
       {/*start of box bullshittery*/}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '20px', marginTop: '50px' }}>
         {/* Coordinate Plane */}
@@ -139,8 +141,8 @@ function Kinematics() {
             position: 'relative',
             width: '400px',
             height: '400px',
-            border: '1px solid #000',
-            backgroundColor: '#eaeaea',
+            border: '1px solid #a68bad',
+            backgroundColor: '#ffffff',
           }}
           onDragOver={(e) => e.preventDefault()} // Allow dropping
           onDrop={(e) => {
@@ -236,20 +238,6 @@ function Kinematics() {
         >
           <p><strong>Displacement:</strong></p>
           <p>{Math.sqrt(lastPosition.x ** 2 + lastPosition.y ** 2).toFixed(2)} px</p>
-        </div>
-        {/* Distance Display */}
-        <div
-          style={{
-            padding: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '5px',
-            backgroundColor: '#fff',
-            fontSize: '16px',
-            color: '#333',
-            width: '200px',
-            textAlign: 'center',
-          }}
-        >
           <p><strong>Distance Traveled:</strong></p>
           <p>{distance.toFixed(2)} px</p>
         </div>
@@ -264,8 +252,8 @@ function Kinematics() {
             position: 'relative',
             width: '400px',
             height: '400px',
-            border: '1px solid #000',
-            backgroundColor: '#eaeaea',
+            border: '1px solid #a68bad',
+            backgroundColor: '#ffffff',
           }}
           onDragOver={(e) => e.preventDefault()} // Allow dropping
           onDrop={(e) => {
@@ -395,66 +383,83 @@ function Kinematics() {
         </div>
       </div>
       {/* end of additional bullshittery */}
+      </div>
+      {/* End of Second Simulation */}
+      {/* Acceleration Info Section */}
       <div
         style={{
-          marginTop: '30px',
+          marginTop: '50px',
           padding: '20px',
-          backgroundColor: '#fff',
-          borderRadius: '8px',
-          textAlign: 'center',
-          fontSize: '18px',
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          backgroundColor: '#e3cfe8',
+          fontSize: '16px',
           color: '#333',
+          textAlign: 'center',
           marginLeft: '10%',
           marginRight: '10%',
         }}
       >
+        <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>V=X/T</h2>
         <p>
-          <strong>V = X / T:</strong>
+        We can take the definition of velocity that was just given and use it to form an equation for velocity. <br></br><br></br>
+
+Using the definition of velocity – change in displacement over change in time –  the equation would be V = X/T. This is also shown in how we describe velocity in everyday life: miles per hour (mph), meters per second (m/s). If you traveled 5 miles in a 10 minute car ride, you would have the velocity being 0.5 miles per minute or 30 miles per hour.
+
         </p>
+
+      </div>
+      {/* Velocity Info Section */}
+      <div
+        style={{
+          marginTop: '50px',
+          padding: '20px',
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          backgroundColor: '#e3cfe8',
+          fontSize: '16px',
+          color: '#333',
+          textAlign: 'center',
+          marginLeft: '10%',
+          marginRight: '10%',
+        }}
+      >
+        <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>Acceleration</h2>
         <p>
-          We can take the definition of velocity that was just given and use it to form an equation for velocity. The displacement of an object can be represented by a displacement X, and since this is on time we divide this displacement by T: giving us the equation X/T. This is also shown in how we describe velocity in everyday life: miles per hour (mph), meters per second (m/s). If you traveled 5 miles in a 10-minute car ride, you would have the velocity being 0.5 miles per minute or 30 miles per hour.
+        You may notice an issue with the previous example, when you go on a car ride you aren’t always going at 30mph, more often than not your velocity fluctuates during the car ride. This is where acceleration comes into play. Acceleration is the change in velocity. Acceleration is described as m/s^2 because it is the change in velocity (m/s) divided by time (s). 
         </p>
       </div>
-
+      {/* Equations Info Section */}
       <div
         style={{
-          marginTop: '30px',
+          marginTop: '50px',
           padding: '20px',
-          backgroundColor: '#fff',
           border: '1px solid #ccc',
-          borderRadius: '8px',
-          textAlign: 'center',
-          fontSize: '18px',
+          borderRadius: '5px',
+          backgroundColor: '#e3cfe8',
+          fontSize: '16px',
           color: '#333',
+          textAlign: 'center',
           marginLeft: '10%',
           marginRight: '10%',
         }}
       >
+        <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>Equations of Motion</h2>
         <p>
-          <strong>Acceleration:</strong>
+          In kinematics, equations of motion are used to describe the relationship between displacement, velocity, acceleration, and time. These equations are particularly useful for solving problems involving uniformly accelerated motion. The three main equations are:
         </p>
+        <ul style={{ textAlign: 'left', marginTop: '10px' }}>
+          <li><strong>v = u + at</strong> - Final velocity (v) is equal to initial velocity (u) plus acceleration (a) multiplied by time (t).</li>
+          <li><strong>s = ut + 0.5at²</strong> - Displacement (s) is equal to initial velocity (u) multiplied by time (t) plus half the acceleration (a) multiplied by time squared (t²).</li>
+          <li><strong>v² = u² + 2as</strong> - The square of the final velocity (v) is equal to the square of the initial velocity (u) plus two times acceleration (a) multiplied by displacement (s).</li>
+        </ul>
         <p>
-          You may notice an issue with the previous example, when you go on a car ride you aren’t always going at 30mph, more often than not your velocity fluctuates during the car ride. This is where acceleration comes into play. Acceleration is simply the change in velocity. For example, an acceleration of 2 means the velocity is increasing by 2m/s each time. Acceleration is described as m/s² because it's the change in velocity (m/s) over time, which then leads to the extra s.
+          These equations assume constant acceleration and are fundamental in solving motion-related problems in physics.
         </p>
       </div>
-
-      {/* Kinematic Equations Section */}
-      <div
-        style={{
-          marginTop: '30px',
-          padding: '20px',
-          backgroundColor: '#fff',
-          border: '1px solid #ccc',
-          borderRadius: '8px',
-          textAlign: 'center',
-          fontSize: '18px',
-          color: '#333',
-          marginLeft: '10%',
-          marginRight: '10%',
-        }}
-      >
     </div>
-  </div>
+    
+        );
 }
 
 
