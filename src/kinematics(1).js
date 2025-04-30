@@ -49,12 +49,6 @@ function Kinematics() {
       </button>
 
       {/* Intro Paragraph */}
-      <MathJax.Provider>
-      <div>
-        <MathJax.Node inline formula={"\\frac{a}{b}"} />
-        <MathJax.Node block formula={"\\int_{a}^{b} x^2 dx"} />
-      </div>
-    </MathJax.Provider>
       <p style={{ textAlign: 'center', fontSize: '40px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
         Kinematics
       </p>
