@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projectile Motion Simulation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    canvas {
+      background: #fff;
+      border: 2px solid #333;
+      margin-top: 20px;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 500px;
+    }
+    .controls label {
+      display: flex;
+      flex-direction: column;
+    }
+    .value-display {
+      font-size: 14px;
+      color: #333;
+      margin-top: 4px;
+    }
+    .info-panel {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+    }
+    .side-panel {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .side-panel label {
+      margin: 4px 0;
+    }
+    .button-container {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Projectile Motion Simulation</h1>
+  <div class="controls">
+    <label>
+      Initial Velocity
+      <input type="range" id="velocity" min="10" max="100" value="50" />
+      <div class="value-display">Velocity: <span id="velocityValue">50</span> m/s</div>
+    </label>
+    <label>
+      Angle
+      <input type="range" id="angle" min="10" max="80" value="45" />
+      <div class="value-display">Angle: <span id="angleValue">45</span>°</div>
+    </label>
+    <label>
+      Gravity
+      <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" />
+      <div class="value-display">Gravity: <span id="gravityValue">9.8</span> m/s²</div>
+    </label>
+  </div>
+  <div class="info-panel">
+    Time: <span id="timeValue">0.00</span> s | 
+    Horizontal Distance (X): <span id="xValue">0.00</span> m | 
+    Height (Y): <span id="yValue">0.00</span> m
+  </div>
+  <div class="button-container">
+    <button id="restartBtn">Restart</button>
+  </div>
+  <div class="side-panel">
+    <label><input type="checkbox" id="showTrail" checked /> Show Trail</label>
+    <label><input type="checkbox" id="showInfo" checked /> Show Info Panel</label>
+  </div>
+  <canvas id="canvas" width="800" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const velocityInput = document.getElementById('velocity');
+    const angleInput = document.getElementById('angle');
+    const gravityInput = document.getElementById('gravity');
+
+    const velocityValue = document.getElementById('velocityValue');
+    const angleValue = document.getElementById('angleValue');
+    const gravityValue = document.getElementById('gravityValue');
+
+    const timeValue = document.getElementById('timeValue');
+    const xValue = document.getElementById('xValue');
+    const yValue = document.getElementById('yValue');
+
+    const restartBtn = document.getElementById('restartBtn');
+    const showTrail = document.getElementById('showTrail');
+    const showInfo = document.getElementById('showInfo');
+    const infoPanel = document.querySelector('.info-panel');
+
+    let animationId;
+    let trail = [];
+
+    function toRadians(degrees) {
+      return degrees * (Math.PI / 180);
+    }
+
+    function drawProjectile() {
+      cancelAnimationFrame(animationId);
+      trail = [];
+
+      const v0 = parseFloat(velocityInput.value);
+      const angle = toRadians(parseFloat(angleInput.value));
+      const g = parseFloat(gravityInput.value);
+
+      velocityValue.textContent = v0;
+      angleValue.textContent = angleInput.value;
+      gravityValue.textContent = g;
+
+      const vx = v0 * Math.cos(angle);
+      const vyInit = v0 * Math.sin(angle);
+
+      const startX = 50;
+      const startY = canvas.height - 20;
+
+      let t = 0;
+      const dt = 0.05;
+
+      function animate() {
+        t += dt;
+        const x = vx * t;
+        const y = vyInit * t - 0.5 * g * t * t;
+        const drawX = startX + x;
+        const drawY = startY - y;
+
+        if (drawY >= canvas.height - 20 || drawX >= canvas.width) {
+          return;
+        }
+
+        if (showTrail.checked) {
+          trail.push({ x: drawX, y: drawY });
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw trail
+        if (showTrail.checked) {
+          ctx.beginPath();
+          for (let i = 0; i < trail.length; i++) {
+            ctx.moveTo(trail[i].x, trail[i].y);
+            ctx.arc(trail[i].x, trail[i].y, 2, 0, Math.PI * 2);
+          }
+          ctx.fillStyle = 'rgba(0, 119, 204, 0.4)';
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        // Draw current projectile position
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#0077cc';
+        ctx.fill();
+        ctx.closePath();
+
+        // Draw ground
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height - 20);
+        ctx.lineTo(canvas.width, canvas.height - 20);
+        ctx.strokeStyle = '#333';
+        ctx.stroke();
+
+        if (showInfo.checked) {
+          infoPanel.style.display = 'block';
+          timeValue.textContent = t.toFixed(2);
+          xValue.textContent = x.toFixed(2);
+          yValue.textContent = y.toFixed(2);
+        } else {
+          infoPanel.style.display = 'none';
+        }
+
+        animationId = requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    velocityInput.addEventListener('input', drawProjectile);
+    angleInput.addEventListener('input', drawProjectile);
+    gravityInput.addEventListener('input', drawProjectile);
+    restartBtn.addEventListener('click', drawProjectile);
+
+    drawProjectile();
+  </script>
+</body>
+</html>

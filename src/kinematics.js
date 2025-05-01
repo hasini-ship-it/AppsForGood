@@ -35,26 +35,15 @@ function Kinematics() {
   return (
     <div style={{ position: 'relative', backgroundColor: '#fbedff', padding: '20px', overflow: 'auto' }}>
       {/* Back Button */}
-      <button
-        style={{
-          position: 'absolute',
-          top: '10px',
-          left: '10px',
-          padding: '10px 20px',
-          fontSize: '16px',
-        }}
-        onClick={() => navigate('/topics')}
-      >
-        Back
-      </button>
+      
 
       {/* Intro Paragraph */}
-      <MathJax.Provider>
+    {/*  <MathJax.Provider>
       <div>
         <MathJax.Node inline formula={"\\frac{a}{b}"} />
         <MathJax.Node block formula={"\\int_{a}^{b} x^2 dx"} />
       </div>
-    </MathJax.Provider>
+    </MathJax.Provider> */}
       <p style={{ textAlign: 'center', fontSize: '40px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
         Kinematics
       </p>
@@ -463,8 +452,14 @@ Using the definition of velocity – change in displacement over change in time 
           These equations assume constant acceleration and are fundamental in solving motion-related problems in physics.
         </p>
       </div>
+
+      <div> 
+          <iframe src= {process.env.PUBLIC_URL + '/projectiles.html'}> 
+
+          </iframe>
+      </div>
     </div>
-    
+     
         );
 }
 
