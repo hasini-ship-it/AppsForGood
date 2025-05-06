@@ -14,7 +14,7 @@ function Home() {
         </div>
         <div className="relative">
           <div 
-            className="w-4 h-48 bg-blue-400 rounded-full origin-top"
+            className="w-2 h-48 bg-blue-400 rounded-full origin-top"
             style={{
               animation: 'pendulumSwing 2s ease-in-out infinite',
               transformOrigin: 'top center'
@@ -22,10 +22,6 @@ function Home() {
           >
             <div className="w-8 h-8 bg-blue-500 rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"></div>
           </div>
-        </div>
-        <div className="absolute bottom-8 left-8 text-white">
-          <h2 className="text-2xl font-bold mb-2">Physics in Motion</h2>
-          <p className="text-gray-300">Exploring the fundamentals of mechanics</p>
         </div>
       </div>
 
@@ -38,7 +34,7 @@ function Home() {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        {/* Animated Bubbles */}
+        /* Animated Bubbles */
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
@@ -50,24 +46,15 @@ function Home() {
             }}
           />
         ))}
-        <div className="absolute bottom-8 right-8 text-white text-right">
-          <h2 className="text-2xl font-bold mb-2">Chemical Reactions</h2>
-          <p className="text-gray-300">Where science comes to life</p>
-        </div>
+      
       </div>
 
-      {/* Content Overlay */}
+      /* Content Overlay */
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-            Transform Your <span className="text-blue-400">Digital Experience</span>
+            Learn. Grow. <span className="text-blue-400"> Eureka! </span>
           </h1>
-          <p className="max-w-2xl mx-auto text-xl text-gray-100 mb-8 leading-relaxed drop-shadow-lg">
-            We create beautiful, functional websites that captivate your audience and drive results.
-          </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl pointer-events-auto">
-            Get Started
-          </button>
         </div>
       </div>
     </section>

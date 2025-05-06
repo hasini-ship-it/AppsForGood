@@ -1,5 +1,5 @@
 import React from 'react';
-
+//awards page
 const Awards = () => {
     return (
         <div>

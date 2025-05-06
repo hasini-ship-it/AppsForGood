@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Topics from './TopicsGood';
 import Settings from './Settings';
 import Awards from './Awards';
-import './App.css';
 import Kinematics from './kinematics';
 import Navbar from './Navbar';
 import Home from './Home';
 
+//forms navbar
 function App() {
   return (   
     <Router>
-      <div className="App">
+      <div>
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

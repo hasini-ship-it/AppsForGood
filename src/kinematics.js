@@ -33,7 +33,7 @@ function Kinematics() {
   };
 
   return (
-    <div style={{ position: 'relative', backgroundColor: '#fbedff', padding: '20px', overflow: 'auto' }}>
+    <div style={{ position: 'relative', backgroundColor: '#cce4f6', padding: '20px', overflow: 'auto' }}>
       {/* Back Button */}
       
 
@@ -88,7 +88,7 @@ function Kinematics() {
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#a68bad',
+                  backgroundColor: '#4a90e2',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   display: 'flex',
@@ -97,6 +97,7 @@ function Kinematics() {
                   fontSize: '20px',
                   padding: '10px',
                   boxSizing: 'border-box',
+                  color: 'white' 
                 }}
               >
                 <strong>{item.term}</strong>
@@ -109,7 +110,7 @@ function Kinematics() {
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#e3cfe8',
+                  backgroundColor: '#BCDEF5',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   transform: 'rotateY(180deg)',
@@ -120,6 +121,7 @@ function Kinematics() {
                   padding: '10px',
                   boxSizing: 'border-box',
                   textAlign: 'center',
+
                 }}
               >
                 {item.def}
@@ -136,7 +138,7 @@ function Kinematics() {
             position: 'relative',
             width: '400px',
             height: '400px',
-            border: '1px solid #a68bad',
+            border: '1px solid #4a90e2',
             backgroundColor: '#ffffff',
           }}
           onDragOver={(e) => e.preventDefault()} // Allow dropping
@@ -247,7 +249,7 @@ function Kinematics() {
             position: 'relative',
             width: '400px',
             height: '400px',
-            border: '1px solid #a68bad',
+            border: '1px solid #4a90e2',
             backgroundColor: '#ffffff',
           }}
           onDragOver={(e) => e.preventDefault()} // Allow dropping
@@ -350,7 +352,7 @@ function Kinematics() {
           borderRadius: '5px',
           backgroundColor: '#fff',
           fontSize: '16px',
-          color: '#333',
+          color: 'black',
           width: '200px',
           textAlign: 'center',
         }}
@@ -367,9 +369,9 @@ function Kinematics() {
             padding: '10px',
             border: '1px solid #ccc',
             borderRadius: '5px',
-            backgroundColor: '#f9f9f9',
+            backgroundColor: '#fff',
             fontSize: '14px',
-            color: '#333',
+            color: 'black',
           }}
         >
           <p><strong>Time:</strong> {((startTime ? performance.now() - startTime : 0) / 1000).toFixed(2)} s</p>
@@ -387,9 +389,9 @@ function Kinematics() {
           padding: '20px',
           border: '1px solid #ccc',
           borderRadius: '5px',
-          backgroundColor: '#e3cfe8',
+          backgroundColor: '#4a90e2',
           fontSize: '16px',
-          color: '#333',
+          color: '#ffffff',
           textAlign: 'center',
           marginLeft: '10%',
           marginRight: '10%',
@@ -411,9 +413,9 @@ Using the definition of velocity – change in displacement over change in time 
           padding: '20px',
           border: '1px solid #ccc',
           borderRadius: '5px',
-          backgroundColor: '#e3cfe8',
+          backgroundColor: '#4a90e2',
           fontSize: '16px',
-          color: '#333',
+          color: '#ffffff',
           textAlign: 'center',
           marginLeft: '10%',
           marginRight: '10%',
@@ -431,9 +433,9 @@ Using the definition of velocity – change in displacement over change in time 
           padding: '20px',
           border: '1px solid #ccc',
           borderRadius: '5px',
-          backgroundColor: '#e3cfe8',
+          backgroundColor: '#4a90e2',
           fontSize: '16px',
-          color: '#333',
+          color: '#ffffff',
           textAlign: 'center',
           marginLeft: '10%',
           marginRight: '10%',
