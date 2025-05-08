@@ -37,8 +37,6 @@ function Kinematics() {
   return (
     <div style={{ position: 'relative', backgroundColor: '#cce4f6', padding: '20px', overflow: 'auto' }}>
       {/* Back Button */}
-      
-
       {/* Intro Paragraph */}
       <p style={{ textAlign: 'center', fontSize: '40px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
         Kinematics
