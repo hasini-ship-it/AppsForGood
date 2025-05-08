@@ -40,17 +40,11 @@ function Kinematics() {
       
 
       {/* Intro Paragraph */}
-    {/*  <MathJax.Provider>
-      <div>
-        <MathJax.Node inline formula={"\\frac{a}{b}"} />
-        <MathJax.Node block formula={"\\int_{a}^{b} x^2 dx"} />
-      </div>
-    </MathJax.Provider> */}
       <p style={{ textAlign: 'center', fontSize: '40px', marginTop: '50px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
         Kinematics
       </p>
       <p style={{ textAlign: 'center', fontSize: '25px', marginTop: '75px', marginLeft: '15%', marginRight: '15%', color: '#333' }}>
-        Kinematics is the branch of physics that deals with how objects move without considering the mass of objects or the forces acting on them. This lesson focuses on introducing you to the basics of kinematics and getting you comfortable with terms which will both be built on in firther lessons. Below are the first set of terms.
+        Kinematics is the branch of physics that deals with how objects move without considering the mass of objects or the forces acting on them. This lesson focuses on introducing you to the basics of kinematics and getting you comfortable with terms which will both be built on in further lessons. Below are the first set of terms.
       </p>
 
       {/* Flippable Cards Grid */}
