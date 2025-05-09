@@ -6,17 +6,20 @@ function Topics() {
   const [visibleButtons, setVisibleButtons] = useState([]);
 
   const pageStyle = {
+
     height: '100vh',
     width: '100%',
-    backgroundColor: '#cce4f6',
+    backgroundImage: 'url(/cssupernovapic.jpg)', // Add the background image
+    backgroundSize: 'cover', // Ensure the image covers the entire area
+    backgroundPosition: 'center', // Center the image
     overflowY: 'auto',
     padding: '2vh 5vw',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     position: 'relative',
+    opacity: 1.2,
   };
-
 
   const buttonContainerStyle = {
     display: 'flex',
@@ -28,14 +31,14 @@ function Topics() {
   };
 
   const buttonStyle = {
-    width: '80vw',
+    width: '90vw',
     maxWidth: '400px',
     height: '60px',
     borderRadius: '12px',
-    backgroundColor: '#4a90e2',
+    backgroundColor: '#f56a00',
     border: 'none',
     color: 'white',
-    fontSize: '1.2rem',
+    fontSize: '1.4rem',
     fontWeight: 'bold',
     cursor: 'pointer',
     textAlign: 'center',
@@ -65,6 +68,7 @@ function Topics() {
 
   return (
     <div style={pageStyle}>
+  
 
       <div style={buttonContainerStyle}>
         {buttons.map((btn, index) => (

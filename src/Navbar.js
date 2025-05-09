@@ -28,18 +28,18 @@ function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a href="#" className="text-2xl font-bold text-blue-600" onClick={() => navigate('/')}>
+          <a href="#" className="text-2xl font-bold text-orange-400" onClick={() => navigate('/')}>
             Home
           </a>
 
           <nav className="hidden md:flex space-x-10">
-            <a href="#topics" className="text-sm font-medium text-gray-800 hover:text-blue-600"  onClick={() => navigate('/topics')}>
+            <a href="#topics" className="text-sm-2xl font-medium text-white hover:text-orange-600"  onClick={() => navigate('/topics')}>
               Topics
             </a>
-            <a href="#awards" className="text-sm font-medium text-gray-800 hover:text-blue-600" onClick={() => navigate('/awards')}>
+            <a href="#awards" className="text-sm-2xl font-medium text-white hover:text-orange-600" onClick={() => navigate('/awards')}>
               Awards
             </a>
-            <a href="#settings" className="text-sm font-medium text-gray-800 hover:text-blue-600" onClick={() => navigate('/settings')}>
+            <a href="#settings" className="text-sm-2xl font-medium text-white hover:text-orange-600" onClick={() => navigate('/settings')}>
               Settings
             </a>
           </nav>
@@ -55,24 +55,24 @@ function Navbar() {
       </div>
 
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white shadow-lg`}>
-        <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="px-4 pt-2 pb-3 space-y-1">
           <a
             href="#topics"
-            className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 rounded-md"
+            className="block px-3 py-2 text-base font-medium text-white hover:bg-gray-100 rounded-md"
             onClick={() => redirect('topics')}
           >
             Topics
           </a>
           <a
             href="#awards"
-            className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 rounded-md"
+            className="block px-3 py-2 text-base font-medium text-white hover:bg-gray-100 rounded-md"
             onClick={() => redirect('awards')}
           >
             Awards
           </a>
           <a
             href="#settings"
-            className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 rounded-md"
+            className="block px-3 py-2 text-base font-medium text-white hover:bg-gray-100 rounded-md"
             onClick={() => redirect('settings')}
           >
             Settings

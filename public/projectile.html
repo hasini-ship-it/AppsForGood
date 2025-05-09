@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projectile Motion Simulation</title>
+  <title> Eureka! Projectile Motion Simulation</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #f0f4f8;
+      background-image: url("cssupernovapic.jpg");
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 20px;
+      color: white;
     }
     canvas {
       background: #fff;
-      border: 2px solid #333;
+      border: 2px solid white;
       margin-top: 20px;
     }
     .controls {
@@ -30,13 +31,13 @@
     }
     .value-display {
       font-size: 14px;
-      color: #333;
+      color: white;
       margin-top: 4px;
     }
     .info-panel {
       margin-top: 10px;
       font-size: 16px;
-      color: #333;
+      color: white;
       text-align: center;
     }
     .side-panel {
@@ -55,6 +56,12 @@
 </head>
 <body>
   <h1>Projectile Motion Simulation</h1>
+
+  <button onclick="window.location.href='/kinematicsConcepts'" 
+        style="margin: 20px; padding: 10px 20px; background-color: orange; color: white; border: none; border-radius: 5px; cursor: pointer;">
+  ← Back to Concepts
+</button>
+
   <div class="controls">
     <label>
       Initial Velocity
@@ -78,6 +85,7 @@
     Height (Y): <span id="yValue">0.00</span> m
   </div>
   <div class="button-container">
+    <button id="startBtn">Start</button>
     <button id="restartBtn">Restart</button>
   </div>
   <div class="side-panel">
@@ -102,6 +110,7 @@
     const xValue = document.getElementById('xValue');
     const yValue = document.getElementById('yValue');
 
+    const startBtn = document.getElementById('startBtn');
     const restartBtn = document.getElementById('restartBtn');
     const showTrail = document.getElementById('showTrail');
     const showInfo = document.getElementById('showInfo');
@@ -109,6 +118,7 @@
 
     let animationId;
     let trail = [];
+    let isRunning = false;
 
     function toRadians(degrees) {
       return degrees * (Math.PI / 180);
@@ -152,7 +162,7 @@
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw trail
+        // Draw trail of projectile
         if (showTrail.checked) {
           ctx.beginPath();
           for (let i = 0; i < trail.length; i++) {
@@ -164,14 +174,14 @@
           ctx.closePath();
         }
 
-        // Draw current projectile position
+        // Draw the current projectile position
         ctx.beginPath();
         ctx.arc(drawX, drawY, 8, 0, Math.PI * 2);
         ctx.fillStyle = '#0077cc';
         ctx.fill();
         ctx.closePath();
 
-        // Draw ground
+        // Draw the ground
         ctx.beginPath();
         ctx.moveTo(0, canvas.height - 20);
         ctx.lineTo(canvas.width, canvas.height - 20);
@@ -187,16 +197,34 @@
           infoPanel.style.display = 'none';
         }
 
-        animationId = requestAnimationFrame(animate);
+        if (isRunning) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          startBtn.textContent = 'Start';
+        }
       }
 
-      animate();
+      if (!isRunning) {
+        startBtn.textContent = 'Start';
+      } else {
+        startBtn.textContent = 'Pause';
+        animate();
+      }
     }
+
+    startBtn.addEventListener('click', () => {
+      isRunning = !isRunning;
+      drawProjectile();
+    });
+
+    restartBtn.addEventListener('click', () => {
+      isRunning = false;
+      drawProjectile();
+    });
 
     velocityInput.addEventListener('input', drawProjectile);
     angleInput.addEventListener('input', drawProjectile);
     gravityInput.addEventListener('input', drawProjectile);
-    restartBtn.addEventListener('click', drawProjectile);
 
     drawProjectile();
   </script>
