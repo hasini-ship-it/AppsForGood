@@ -14,7 +14,7 @@ function Kinematics() {
   const [velocityLastPosition, setVelocityLastPosition] = useState({ x: 0, y: 0 }); // Last position of the red box
   const [startTime, setStartTime] = useState(null); // Start time of the simulation
 
-  const [boxTexts] = useState([
+  const [boxTexts] = useState([ // Array of flashcard vocab and definitions
     { term: 'Vector', def: 'Has both magnitude and direction. For example “driving 30 mph north” would be a vector' },
     { term: 'Scalar', def: 'Has magnitude but no direction. For example “driving 30 mph” would be a scalar' },
     { term: 'Distance', def: 'How far something travels over the course of the entire journey: If you travel 3 feet to the left and 1 foot to the right, your distance would be 4 feet. This wouldn’t be a vector because it doesn’t have a direction associated with it.' },
@@ -34,6 +34,7 @@ function Kinematics() {
   };
 
   return (
+    /* normal background css styles for app*/
     <div style={{ 
       padding: '20px',
       height: '100vh',
@@ -45,7 +46,7 @@ function Kinematics() {
       padding: '2vh 5vw',
       alignItems: 'center',
       position: 'relative',
-      opacity: 1.2,
+      opacity: 1,
     }}>
       {/* Intro Paragraph */}
       <p style={{color: 'white', textAlign: 'center', fontSize: '45px', marginTop: '8%', marginLeft: '15%', marginRight: '15%', fontWeight: 'bold'}}>
@@ -61,7 +62,7 @@ function Kinematics() {
         marginRight: '10%', 
         marginTop: '5%', 
       }}>
-        <p style={{ 
+        <p style={{  /* font styles*/
           textAlign: 'center', 
           fontSize: '20px', 
           color: 'black',
@@ -71,17 +72,20 @@ function Kinematics() {
         </p>
       </div>
 
-      {/* Flippable Cards Grid */}{/*Not here*/}
+
+
+      {/* Flippable Cards Grid */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: 'repeat(2, 1fr)', //creates 2 column grid
           gap: '20px',
           marginTop: '20px',
           marginLeft: '10%',
           marginRight: '10%',
         }}
       >
+        {/* loops through the boxTexts array with .map to create the cards */}
         {boxTexts.map((item, index) => (
           <div
             key={index}
@@ -101,14 +105,14 @@ function Kinematics() {
                 transform: flipped[index] ? 'rotateY(180deg)' : 'rotateY(0deg)',
               }}
             >
-              {/* Front Side */}
+              {/* Front Side of flashcards */}
               <div
                 style={{
                   position: 'absolute',
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#a68bad',
+                  backgroundColor: '#fcd66d',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   display: 'flex',
@@ -122,24 +126,25 @@ function Kinematics() {
                 <strong>{item.term}</strong>
               </div>
 
-              {/* Back Side */}
+              {/* Back Side of flashcards */}
               <div
                 style={{
                   position: 'absolute',
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: '#e3cfe8',
+                  backgroundColor: 'white',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   transform: 'rotateY(180deg)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '14px',
+                  fontSize: '10px',
                   padding: '10px',
                   boxSizing: 'border-box',
                   textAlign: 'center',
+                  fontWeight: 'normal',
                 }}
               >
                 {item.def}
@@ -149,7 +154,7 @@ function Kinematics() {
         ))}
       </div>
 
-      {/* Simulation and Info Container */}
+      {/* Distance vs Displacement Simulation section */}
         <div
           style={{
             display: 'flex',
@@ -159,8 +164,8 @@ function Kinematics() {
             marginTop: '50px',
           }}
         >
-          {/* Coordinate Plane (Simulation) */}
-          <div
+          {/* Coordinate Plane of Simulation */}
+          <div 
             style={{
               position: 'relative',
               width: '400px',
@@ -168,21 +173,30 @@ function Kinematics() {
               border: '1px solid #4a90e2',
               backgroundColor: '#ffffff',
             }}
-            onDragOver={(e) => e.preventDefault()} // Allow dropping
+            onDragOver={(e) => e.preventDefault()} // Allow dragging of the elements
             onDrop={(e) => {
+            e.preventDefault();
+            if (!box || !plane) return;
+
+
               const plane = e.currentTarget;
               const box = document.getElementById('movableBox');
               const { offsetX, offsetY } = JSON.parse(e.dataTransfer.getData('text/plain'));
+             
+             //gets the mouse position relative to the plane
               const rect = plane.getBoundingClientRect();
               const x = e.clientX - rect.left - offsetX;
               const y = e.clientY - rect.top - offsetY;
 
+              // Check that the box stays inside the dimensions of the coordinate plane
               const clampedX = Math.max(0, Math.min(x, plane.clientWidth - box.clientWidth));
               const clampedY = Math.max(0, Math.min(y, plane.clientHeight - box.clientHeight));
 
+              //moves the box to new position when dropped
               box.style.left = `${clampedX}px`;
               box.style.top = `${clampedY}px`;
 
+              // Calculate the total distance traveled
               const dx = clampedX - lastPosition.x;
               const dy = clampedY - lastPosition.y;
               const traveled = Math.sqrt(dx * dx + dy * dy);
@@ -191,6 +205,7 @@ function Kinematics() {
               setLastPosition({ x: clampedX, y: clampedY });
             }}
           >
+            {/*reset button */}
             <button
               style={{
                 position: 'absolute',
@@ -209,6 +224,10 @@ function Kinematics() {
             >
               Reload
             </button>
+
+
+
+            {/* draggable Box */}
             <div
               id="movableBox"
               style={{
@@ -230,7 +249,10 @@ function Kinematics() {
               }}
             ></div>
           </div>
-          {/* Info Group (Display and Explanation) */}
+
+
+
+          {/* Information with display and explanation */}
           <div
             style={{
               display: 'flex',
@@ -258,15 +280,15 @@ function Kinematics() {
               <p>{distance.toFixed(2)} px</p>
             </div>
 
-            {/* Explanation Box */}
+            {/* Conceptual explanation Box */}
             <div
               style={{
                 padding: '10px',
                 border: '1px solid #ccc',
                 borderRadius: '5px',
-                backgroundColor: '#4a90e2',
+                backgroundColor: 'orange',
                 fontSize: '16px',
-                color: '#ffffff',
+                color: 'black',
                 textAlign: 'center',
                 width: '300px', // Match the width of the display box
               }}
@@ -278,11 +300,12 @@ function Kinematics() {
             </div>
           </div>
         </div>
-      {/*end of bullshittery*/}
-      {/* Additional bullshittery */}
-      {/* Second Simulation: Speed and Velocity */}
+      {/* End of Distance vs Displacement Simulation */}
+    
+      {/* Second Simulation for Speed and Velocity */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '20px', marginTop: '50px' }}>
-        {/* Coordinate Plane */}
+
+        {/* Second Coordinate Plane */}
         <div
           style={{
             position: 'relative',
@@ -291,13 +314,19 @@ function Kinematics() {
             border: '1px solid #4a90e2',
             backgroundColor: '#ffffff',
           }}
-          onDragOver={(e) => e.preventDefault()} // Allow dropping
-          onDrop={(e) => {
+          onDragOver={(e) => e.preventDefault()} // Allow dragging an element
+          onDrop={(e) => { //on drop then do everything else
+              e.preventDefault();
+              if (!box || !plane) return;
+   
             const plane = e.currentTarget; // The larger coordinate plane
             const box = document.getElementById('velocityBox'); // The red box
+
+            // Get the offset of the mouse pointer relative to the box to find new positiotn of box
             const { offsetX, offsetY } = JSON.parse(
               e.dataTransfer.getData('text/plain')
             ); // Retrieve the offset
+
             const rect = plane.getBoundingClientRect(); // Get the bounding rectangle of the plane
             const x = e.clientX - rect.left - offsetX; // Calculate the new x position
             const y = e.clientY - rect.top - offsetY; // Calculate the new y position
@@ -356,6 +385,9 @@ function Kinematics() {
           >
             Reload
           </button>
+
+
+          {/* Draggable Red Box */}
           <div
             id="velocityBox"
             style={{
@@ -383,8 +415,11 @@ function Kinematics() {
             }}
           ></div>
         </div>
-        {/* Speed and Velocity Display */}
-      <div
+
+
+        {/* Speed and Velocity Display corresponding to plane */}
+        
+      <div //styles for text
         style={{
           padding: '10px',
           border: '1px solid #ccc',
@@ -401,8 +436,8 @@ function Kinematics() {
         <p><strong>Velocity:</strong></p>
         <p>{velocity.toFixed(2)} px/s</p>
 
-        {/* Additional Info Box */}
-        <div
+        {/* Additional Info Box with time, distance and displacement for first coordinate plane */}
+        <div //styles for background and text
           style={{
             marginTop: '10px',
             padding: '10px',
@@ -413,14 +448,15 @@ function Kinematics() {
             color: 'black',
           }}
         >
+          {/* components */}
           <p><strong>Time:</strong> {((startTime ? performance.now() - startTime : 0) / 1000).toFixed(2)} s</p>
           <p><strong>Displacement:</strong> {Math.sqrt(velocityLastPosition.x ** 2 + velocityLastPosition.y ** 2).toFixed(2)} px</p>
           <p><strong>Distance:</strong> {speed.toFixed(2)} px</p>
         </div>
       </div>
-      {/* end of additional bullshittery */}
       </div>
       {/* End of Second Simulation */}
+
 
 
       {/* Navigation Button to Next Page */}

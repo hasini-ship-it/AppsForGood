@@ -1,35 +1,29 @@
 /* src/index.css */
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
+/* removes default margin*/
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; /* improves font rendering on macOS and firefox*/
 }
 
+/* font family for <code> elements*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-@keyframes pendulumSwing {
-  0% { transform: rotate(-20deg); }
-  50% { transform: rotate(20deg); }
-  100% { transform: rotate(-20deg); }
-}
-
+/*Animation for the floating bubble effect and moves them up and down movement */
 @keyframes bubbleFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
 
+/* scrolling for navigation */
 html {
   scroll-behavior: smooth;
 }

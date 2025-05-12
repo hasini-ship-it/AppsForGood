@@ -9,7 +9,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import KinematicsConcepts from './kinematicsConcepts';
 
-// Main App component
+// Main App component with routing paths
 function App() {
   return (   
     <Router>
