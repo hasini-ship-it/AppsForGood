@@ -140,7 +140,7 @@ function Kinematics() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '10px',
+                  fontSize: '11px',
                   padding: '10px',
                   boxSizing: 'border-box',
                   textAlign: 'center',

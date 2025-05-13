@@ -89,14 +89,15 @@ function Quiz() {
 
   return (
     <div
+    //for text of question and container
       style={{
         marginTop: '50px',
         padding: '20px',
         border: '1px solid #ccc',
         borderRadius: '5px',
-        backgroundColor: '#4a90e2', // Match the background color of other sections
+        backgroundColor: 'orange', // Match the background color of other sections
         fontSize: '16px',
-        color: '#ffffff', // White text color for contrast
+        color: 'black', // black text color for contrast
         textAlign: 'center',
         marginLeft: '10%',
         marginRight: '10%',
@@ -134,11 +135,12 @@ function Quiz() {
               marginTop: '20px',
               padding: '10px 20px',
               fontSize: '16px',
-              backgroundColor: '#ffffff', // White button
-              color: '#4a90e2', // Blue text for contrast
+              backgroundColor: 'white', // White button
+              color: 'black', // Blue text for contrast
               border: 'none',
               borderRadius: '5px',
               cursor: 'pointer',
+              fontWeight: 'bold',
             }}
           >
             Submit
@@ -174,6 +176,7 @@ function Quiz() {
     </div>
   );
 }
+
 
 
 

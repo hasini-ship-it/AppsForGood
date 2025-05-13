@@ -93,3 +93,5 @@ function Topics() {
 }
 
 export default Topics;
+
+//used w3schools for css stylings similar to other pages
