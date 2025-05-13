@@ -1,7 +1,181 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import { useNavigate } from 'react-router-dom';
+
+
+function Quiz() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Tracks the current question index
+  const [correctAnswers, setCorrectAnswers] = useState(0); // Tracks the number of correct answers
+  const [isSubmitted, setIsSubmitted] = useState(false); // Tracks if the current question has been submitted
+  const [selectedOption, setSelectedOption] = useState(null); // Tracks the selected option
+  const [quizComplete, setQuizComplete] = useState(false); // Tracks if the quiz is complete
+
+  const questions = [
+    {
+      question: "Why do we use displacement for velocity instead of distance?",
+      options: [
+        "Displacement is easier to calculate",
+        "Displacement is always greater than distance",
+        "Displacement preserves direction",
+        "Distance is a vector quantity",
+      ],
+      correctAnswer: "Displacement preserves direction",
+    },
+    {
+      question: "What is acceleration?",
+      options: ["the change in velocity over change in time", "the average velocity", "the change in velocity over some distance", "the average velocity over some distance"],
+      correctAnswer: "the change in velocity over change in time",
+    },
+    {
+      question: "What is displacement?",
+      options: [
+        "The total distance traveled",
+        "The shortest distance between two points",
+        "The speed of an object",
+        "The force acting on an object",
+      ],
+      correctAnswer: "The shortest distance between two points",
+    },
+    {
+      question: "If greg started at rest and accelerated at 2 m/s² for 5 seconds, what would his final velocity be?",
+      options: [
+        "10 m/s",
+        "5 m/s",
+        "25 m/s",
+        "7.5 m/s",
+      ],
+      correctAnswer: "10 m/s",
+    },
+    {
+      question: "What is a scalar quantity?",
+      options: [
+        "A quantity with only magnitude",
+        "A quantity with magnitude and direction",
+        "A quantity with only direction",
+        "A quantity with no units",
+      ],
+      correctAnswer: "A quantity with only magnitude",
+    },
+  ];
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option); // Update the selected option
+  };
+
+  const handleSubmit = () => {
+    if (!selectedOption) return; // Prevent submission if no option is selected
+
+    setIsSubmitted(true); // Mark the question as submitted
+
+    // Check if the selected option is correct
+    if (selectedOption === questions[currentQuestionIndex].correctAnswer) {
+      setCorrectAnswers((prev) => prev + 1); // Increment correct answers
+    }
+
+    // Move to the next question or complete the quiz
+    if (currentQuestionIndex < questions.length - 1) {
+      setTimeout(() => {
+        setCurrentQuestionIndex((prev) => prev + 1); // Move to the next question
+        setSelectedOption(null); // Reset selected option
+        setIsSubmitted(false); // Reset submission state
+      }, 1000); // Delay for user feedback
+    } else {
+      setTimeout(() => {
+        setQuizComplete(true); // Mark the quiz as complete
+      }, 1000);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        marginTop: '50px',
+        padding: '20px',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        backgroundColor: '#4a90e2', // Match the background color of other sections
+        fontSize: '16px',
+        color: '#ffffff', // White text color for contrast
+        textAlign: 'center',
+        marginLeft: '10%',
+        marginRight: '10%',
+      }}
+    >
+      <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>Quiz</h2>
+      {!quizComplete ? (
+        <>
+          <p style={{ marginBottom: '20px' }}>
+            {questions[currentQuestionIndex].question}
+          </p>
+          <div style={{ textAlign: 'left', marginLeft: '20%' }}>
+            {questions[currentQuestionIndex].options.map((option, index) => (
+              <div key={index} style={{ marginBottom: '10px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', color: '#ffffff' }}>
+                  <input
+                    type="radio"
+                    name="quiz"
+                    value={option}
+                    checked={selectedOption === option}
+                    onChange={() => handleOptionChange(option)}
+                    style={{
+                      marginRight: '10px',
+                      accentColor: '#ffffff', // White radio button
+                    }}
+                  />
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleSubmit}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              fontSize: '16px',
+              backgroundColor: '#ffffff', // White button
+              color: '#4a90e2', // Blue text for contrast
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            Submit
+          </button>
+          {isSubmitted && (
+            <div style={{ marginTop: '20px' }}>
+              <p
+                style={{
+                  color:
+                    selectedOption ===
+                    questions[currentQuestionIndex].correctAnswer
+                      ? '#00ff00'
+                      : '#ff0000',
+                }}
+              >
+                {selectedOption ===
+                questions[currentQuestionIndex].correctAnswer
+                  ? 'Correct!'
+                  : `Incorrect. The correct answer is: ${questions[currentQuestionIndex].correctAnswer}`}
+              </p>
+            </div>
+          )}
+        </>
+      ) : (
+        <div style={{ marginTop: '20px' }}>
+          {correctAnswers >= 3 ? (
+            <p style={{ color: '#00ff00' }}>Well done! You answered {correctAnswers} out of 5 questions correctly.</p>
+          ) : (
+            <p style={{ color: '#ff0000' }}>You answered {correctAnswers} out of 5 questions correctly. Try again!</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
 
 const KinematicsConcepts = () => {
   const navigate = useNavigate();
@@ -135,7 +309,11 @@ const KinematicsConcepts = () => {
           These equations are the basis of kinematics. They each help describe the relationship between time, displacement, velocity, and acceleration, and are used to solve a variety of problems.
         </p>
       </div>
+           {/* End of Equations Info Section */}
+      {/* add quiz*/}
+      <Quiz />
     </div>
+
   );
 };
 
