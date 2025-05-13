@@ -2,6 +2,7 @@ import React from 'react';
 
 const Awards = () => {
     return (
+        // Main container with background image and app background common styles
         <div style={{ 
             height: '100vh',
             width: '100%',
@@ -16,27 +17,28 @@ const Awards = () => {
             position: 'relative',
             opacity: 1.2,
           }}>
-        <div style={styles.container}>
+            {/*Header with description and styles for awards page*/}
+        <div style={styles.pageAward}>
             <p style={{color: 'white', textAlign: 'center', fontSize: '45px', marginTop: '8%', marginLeft: '15%', marginRight: '15%', fontWeight: 'bold'}}>
         Awards
       </p>
-            <p style={styles.description}>Welcome to the Awards page. Showcase your achievements here!</p>
+            <p style={styles.descriptionAward}>Welcome to the Awards page. Showcase your achievements here!</p>
         </div>
         </div>
     );
 };
 
 export default Awards;
-
+//styles of header and description
 const styles = {
-    container: {
+    pageAward: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         height: '80vh',
     },
-    description: {
+    descriptionAward: {
         fontSize: '18px',
         textAlign: 'center',
         color:'white',

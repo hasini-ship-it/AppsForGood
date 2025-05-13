@@ -2,11 +2,12 @@ import React from 'react';
 
 const Settings = () => {
     return (
+        // Main container with background image and app background common styles
     <div style={{ 
             height: '100vh',
             width: '100%',
             backgroundImage: 'url(/cssupernovapic.jpg)', // Add the background image
-            backgroundSize: 'cover', // Ensure the image covers the entire area
+            backgroundSize: 'cover', //  image covers the entire area
             backgroundPosition: 'center', // Center the image
             overflowY: 'auto',
             padding: '2vh 5vw',
@@ -16,21 +17,21 @@ const Settings = () => {
             position: 'relative',
             opacity: 1.2,
           }}>
-
-        <div style={styles.container}>
+{/*Header with description text and styles for settings page*/}
+        <div style={styles.pageSet}>
         <p style={{color: 'white', textAlign: 'center', fontSize: '45px', marginTop: '8%', marginLeft: '15%', marginRight: '15%', fontWeight: 'bold'}}>
     Settings
   </p>
-        <p style={styles.description}> Come back soon to make an account with Eureka! </p>
+        <p style={styles.descriptionSet}> Come back soon to make an account with Eureka! </p>
         </div>
     </div>
     );
 };
 
 export default Settings;
-
+//styles of header and description
 const styles = {
-    container: {
+    pageSet: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -39,7 +40,7 @@ const styles = {
         color: 'white',
         fontWeight:'bold',
     },
-    description: {
+    descriptionSet: {
         fontSize: '18px',
         textAlign: 'center',
     },
