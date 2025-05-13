@@ -133,18 +133,19 @@ function Kinematics() {
                   width: '100%',
                   height: '100%',
                   backfaceVisibility: 'hidden',
-                  backgroundColor: 'white',
-                  border: '1px solid #ccc',
+                  backgroundColor: '#fcd66d', // Match the orange theme
+                  border: '1px solid #4a90e2', // Add a blue border for contrast
                   borderRadius: '8px',
                   transform: 'rotateY(180deg)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '11px',
-                  padding: '10px',
+                  fontSize: '14px', // Increase font size for readability
+                  padding: '15px', // Add padding for better spacing
                   boxSizing: 'border-box',
                   textAlign: 'center',
-                  fontWeight: 'normal',
+                  fontWeight: 'bold', // Make text bold for better readability
+                  color: '#333', // Use a darker text color for contrast
                 }}
               >
                 {item.def}
@@ -176,34 +177,33 @@ function Kinematics() {
             onDragOver={(e) => e.preventDefault()} // Allow dragging of the elements
             onDrop={(e) => {
             e.preventDefault();
-            if (!box || !plane) return;
 
+            // Safely get the box element
+            const box = document.getElementById('movableBox');
+            if (!box) {
+              console.error("Box element not found");
+              return;
+            }
 
-              const plane = e.currentTarget;
-              const box = document.getElementById('movableBox');
-              const { offsetX, offsetY } = JSON.parse(e.dataTransfer.getData('text/plain'));
-             
-             //gets the mouse position relative to the plane
-              const rect = plane.getBoundingClientRect();
-              const x = e.clientX - rect.left - offsetX;
-              const y = e.clientY - rect.top - offsetY;
+            const plane = e.currentTarget;
+            const { offsetX, offsetY } = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const rect = plane.getBoundingClientRect();
+            const x = e.clientX - rect.left - offsetX;
+            const y = e.clientY - rect.top - offsetY;
 
-              // Check that the box stays inside the dimensions of the coordinate plane
-              const clampedX = Math.max(0, Math.min(x, plane.clientWidth - box.clientWidth));
-              const clampedY = Math.max(0, Math.min(y, plane.clientHeight - box.clientHeight));
+            const clampedX = Math.max(0, Math.min(x, plane.clientWidth - box.clientWidth));
+            const clampedY = Math.max(0, Math.min(y, plane.clientHeight - box.clientHeight));
 
-              //moves the box to new position when dropped
-              box.style.left = `${clampedX}px`;
-              box.style.top = `${clampedY}px`;
+            box.style.left = `${clampedX}px`;
+            box.style.top = `${clampedY}px`;
 
-              // Calculate the total distance traveled
-              const dx = clampedX - lastPosition.x;
-              const dy = clampedY - lastPosition.y;
-              const traveled = Math.sqrt(dx * dx + dy * dy);
-              setDistance((prevDistance) => prevDistance + traveled);
+            const dx = clampedX - lastPosition.x;
+            const dy = clampedY - lastPosition.y;
+            const traveled = Math.sqrt(dx * dx + dy * dy);
+            setDistance((prevDistance) => prevDistance + traveled);
 
-              setLastPosition({ x: clampedX, y: clampedY });
-            }}
+            setLastPosition({ x: clampedX, y: clampedY });
+          }}
           >
             {/*reset button */}
             <button
@@ -305,41 +305,41 @@ function Kinematics() {
       {/* Second Simulation for Speed and Velocity */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '20px', marginTop: '50px' }}>
 
-        {/* Second Coordinate Plane */}
-        <div
-          style={{
-            position: 'relative',
-            width: '400px',
-            height: '400px',
-            border: '1px solid #4a90e2',
-            backgroundColor: '#ffffff',
-          }}
-          onDragOver={(e) => e.preventDefault()} // Allow dragging an element
-          onDrop={(e) => { //on drop then do everything else
-              e.preventDefault();
-              if (!box || !plane) return;
-   
+      {/* Second Coordinate Plane */}
+      <div
+        style={{
+          position: 'relative',
+          width: '400px',
+          height: '400px',
+          border: '1px solid #4a90e2',
+          backgroundColor: '#ffffff',
+        }}
+        onDragOver={(e) => e.preventDefault()} // Allow dragging an element
+        onDrop={(e) => {
+                e.preventDefault();
+
+            // Safely get the box element
+            const box = document.getElementById('velocityBox');
+            if (!box) {
+              console.error("Box element not found");
+              return;
+            }
+
             const plane = e.currentTarget; // The larger coordinate plane
-            const box = document.getElementById('velocityBox'); // The red box
+            if (!plane) {
+              console.error("Plane element not found");
+              return;
+            }
 
-            // Get the offset of the mouse pointer relative to the box to find new positiotn of box
-            const { offsetX, offsetY } = JSON.parse(
-              e.dataTransfer.getData('text/plain')
-            ); // Retrieve the offset
-
+            // Get the offset of the mouse pointer relative to the box
+            const { offsetX, offsetY } = JSON.parse(e.dataTransfer.getData('text/plain'));
             const rect = plane.getBoundingClientRect(); // Get the bounding rectangle of the plane
             const x = e.clientX - rect.left - offsetX; // Calculate the new x position
             const y = e.clientY - rect.top - offsetY; // Calculate the new y position
 
             // Ensure the box stays within the bounds of the coordinate plane
-            const clampedX = Math.max(
-              0,
-              Math.min(x, plane.clientWidth - box.clientWidth)
-            );
-            const clampedY = Math.max(
-              0,
-              Math.min(y, plane.clientHeight - box.clientHeight)
-            );
+            const clampedX = Math.max(0, Math.min(x, plane.clientWidth - box.clientWidth));
+            const clampedY = Math.max(0, Math.min(y, plane.clientHeight - box.clientHeight));
 
             // Update the position of the red box
             box.style.left = `${clampedX}px`;
@@ -370,18 +370,18 @@ function Kinematics() {
               padding: '10px 20px',
               fontSize: '16px',
             }}
-            onClick={() => {
-              // Reset the red box position
-              const box = document.getElementById('velocityBox');
-              box.style.left = '0px';
-              box.style.top = '0px';
+                onClick={() => {
+            // Reset the red box position
+            const box = document.getElementById('velocityBox');
+            box.style.left = '0px';
+            box.style.top = '0px';
 
-              // Reset speed, velocity, last position, and start time
-              setSpeed(0);
-              setVelocity(0);
-              setVelocityLastPosition({ x: 0, y: 0 });
-              setStartTime(null);
-            }}
+            // Reset speed, velocity, last position, and start time
+            setSpeed(0);
+            setVelocity(0);
+            setVelocityLastPosition({ x: 0, y: 0 });
+            setStartTime(null);
+          }}
           >
             Reload
           </button>
@@ -418,40 +418,58 @@ function Kinematics() {
 
 
         {/* Speed and Velocity Display corresponding to plane */}
-        
-      <div //styles for text
+              <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '20px', // Space between the display and explanation
+              }}
+            >
+            {/* Speed, Velocity, and Displacement Display */}
+            <div
+              style={{
+                padding: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '5px',
+                backgroundColor: '#fff',
+                fontSize: '16px',
+                color: '#333',
+                width: '300px',
+                textAlign: 'center',
+              }}
+            >
+              <p>
+                <strong>Displacement:</strong> {Math.sqrt(lastPosition.x ** 2 + lastPosition.y ** 2).toFixed(2)} px
+              </p>
+              <p>
+                <strong>Distance Traveled:</strong> {distance.toFixed(2)} px
+              </p>
+              <p>
+                <strong>Speed:</strong> {speed.toFixed(2)} px/s
+              </p>
+              <p>
+                <strong>Velocity:</strong> {velocity.toFixed(2)} px/s
+              </p>
+            </div>
+
+        {/* Additional Info Box with time, distance and displacement for first coordinate plane */}
+          <div
         style={{
           padding: '10px',
           border: '1px solid #ccc',
           borderRadius: '5px',
-          backgroundColor: '#fff',
+          backgroundColor: 'orange',
           fontSize: '16px',
           color: 'black',
-          width: '200px',
           textAlign: 'center',
+          width: '300px', // Match the width of the display box
         }}
       >
-        <p><strong>Speed:</strong></p>
-        <p>{speed.toFixed(2)} px/s</p>
-        <p><strong>Velocity:</strong></p>
-        <p>{velocity.toFixed(2)} px/s</p>
-
-        {/* Additional Info Box with time, distance and displacement for first coordinate plane */}
-        <div //styles for background and text
-          style={{
-            marginTop: '10px',
-            padding: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '5px',
-            backgroundColor: '#fff',
-            fontSize: '14px',
-            color: 'black',
-          }}
-        >
-          {/* components */}
-          <p><strong>Time:</strong> {((startTime ? performance.now() - startTime : 0) / 1000).toFixed(2)} s</p>
-          <p><strong>Displacement:</strong> {Math.sqrt(velocityLastPosition.x ** 2 + velocityLastPosition.y ** 2).toFixed(2)} px</p>
-          <p><strong>Distance:</strong> {speed.toFixed(2)} px</p>
+        <h2>The simulation shows the differences between speed and velocity.</h2>
+        <p>
+          You can drag the red box, and it displays both speed and velocity. Speed measures the total distance traveled, while velocity considers the displacement and direction. Notice how velocity can be zero if the box returns to its starting point, even if the speed is non-zero.
+        </p>
         </div>
       </div>
       </div>
