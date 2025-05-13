@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Topics from './TopicsGood';
 import Settings from './Settings';
@@ -10,7 +9,14 @@ import Home from './Home';
 import KinematicsConcepts from './kinematicsConcepts';
 
 // Main App component with routing paths
+
 function App() {
+  //  default title when our app mounts
+  useEffect(() => {
+    document.title = "Eureka!"; //title
+  }, []);
+
+/* routing paths that lead to other pages*/
   return (   
     <Router>
       <div>

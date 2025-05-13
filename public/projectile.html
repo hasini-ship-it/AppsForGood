@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> Eureka! Projectile Motion Simulation</title>
   <style>
+    /* styling for the body */
     body {
       font-family: sans-serif;
       background-image: url("cssupernovapic.jpg");
@@ -14,34 +15,43 @@
       padding: 20px;
       color: white;
     }
+
+    /* style for white canvas board (where the projectile si drawn) */
     canvas {
       background: #fff;
       border: 2px solid white;
       margin-top: 20px;
-      width: 800; 
-      height: 400;
+      width: 100%; /* allows responsive width */
+      height: auto;  /* allows responsive height */
+      max-width: 800px; /* limits the max width for large screens, sets a num*/
     }
+
+    /* grid layout for control sliders */
     .controls {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       max-width: 500px;
     }
+
     .controls label {
       display: flex;
       flex-direction: column;
     }
+    /* style for the text of slider */ 
     .value-display {
       font-size: 14px;
-      color: white;
+      color: white; 
       margin-top: 4px;
     }
+    /* style for the button */
     .info-panel {
       margin-top: 10px;
       font-size: 16px;
       color: white;
       text-align: center;
     }
+    /* location of the side panel and checks for responsiveness */
     .side-panel {
       margin-top: 20px;
       display: flex;
@@ -59,111 +69,157 @@
 <body>
   <h1>Projectile Motion Simulation</h1>
 
+<!-- Button to return to concepts page -->
   <button onclick="window.location.href='/kinematicsConcepts'" 
         style="margin: 20px; padding: 10px 20px; background-color: orange; color: white; border: none; border-radius: 5px; cursor: pointer;">
   ← Back to Concepts
 </button>
 
+<!-- works with controls for input parameters -->
   <div class="controls">
+     <!-- Initial Velocity slider -->
     <label>
       Initial Velocity
       <input type="range" id="velocity" min="10" max="100" value="50" />
       <div class="value-display">Velocity: <span id="velocityValue">50</span> m/s</div>
     </label>
+
+     <!-- Angle slider -->
     <label>
       Angle
       <input type="range" id="angle" min="10" max="80" value="45" />
       <div class="value-display">Angle: <span id="angleValue">45</span>°</div>
     </label>
+
+    <!-- Gravity slider -->
     <label>
       Gravity
       <input type="range" id="gravity" min="1" max="20" value="9.8" step="0.1" />
       <div class="value-display">Gravity: <span id="gravityValue">9.8</span> m/s²</div>
     </label>
   </div>
+
+
+  <!-- info and data panel for the details of projectile-->
   <div class="info-panel">
     Time: <span id="timeValue">0.00</span> s | 
     Horizontal Distance (X): <span id="xValue">0.00</span> m | 
     Height (Y): <span id="yValue">0.00</span> m
   </div>
+
+  <!-- introduces start and restart buttons -->
   <div class="button-container">
     <button id="startBtn">Start</button>
     <button id="restartBtn">Restart</button>
   </div>
+    <!-- includes optional checkboxes for added features -->
   <div class="side-panel">
     <label><input type="checkbox" id="showTrail" checked /> Show Trail</label>
     <label><input type="checkbox" id="showInfo" checked /> Show Info Panel</label>
   </div>
 
+  <!-- Drawing canvas in html-->
   <canvas id="canvas" width="800" height="400"></canvas> 
  
 
   <script>
+    // Getters to canvas and inputs
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
+    // uses sliders for user input
     const velocityInput = document.getElementById('velocity');
     const angleInput = document.getElementById('angle');
     const gravityInput = document.getElementById('gravity');
 
+    // the sliders display 
     const velocityValue = document.getElementById('velocityValue');
     const angleValue = document.getElementById('angleValue');
     const gravityValue = document.getElementById('gravityValue');
 
+  // projectile trail info display
     const timeValue = document.getElementById('timeValue');
     const xValue = document.getElementById('xValue');
     const yValue = document.getElementById('yValue');
 
+
+  // all buttons
     const startBtn = document.getElementById('startBtn');
     const restartBtn = document.getElementById('restartBtn');
+
+     // shows checkboxes
     const showTrail = document.getElementById('showTrail');
     const showInfo = document.getElementById('showInfo');
     const infoPanel = document.querySelector('.info-panel');
 
+
+       //control variables
     let animationId;
     let trail = [];
     let isRunning = false;
 
+ // this is a helper function that converts degrees to radians
     function toRadians(degrees) {
       return degrees * (Math.PI / 180);
     }
 
-    function drawProjectile() {
-      cancelAnimationFrame(animationId);
-      trail = [];
 
+  // it is the function to make the canvas responsive based on screen size
+    function resizeCanvas() {
+      const containerWidth = Math.min(window.innerWidth - 40, 800);
+      const aspectRatio = 2; // width:height = 2:1
+      canvas.width = containerWidth;
+      canvas.height = containerWidth / aspectRatio;
+    }
+
+// this is the main drawing function
+    function drawProjectile() {
+      cancelAnimationFrame(animationId); //stops previous animation
+      trail = []; //clears the trail cause array is empty
+
+      //gets the values from input sliders
       const v0 = parseFloat(velocityInput.value);
       const angle = toRadians(parseFloat(angleInput.value));
       const g = parseFloat(gravityInput.value);
 
+//updates displayed values
       velocityValue.textContent = v0;
       angleValue.textContent = angleInput.value;
       gravityValue.textContent = g;
 
+      //initial velocity components
       const vx = v0 * Math.cos(angle);
       const vyInit = v0 * Math.sin(angle);
 
+      //this is the starting point of the trail
       const startX = 50;
       const startY = canvas.height - 20;
 
       let t = 0;
       const dt = 0.05;
 
+      //this is the animation loop
       function animate() {
         t += dt;
+
+        //kinematic equations for projectiles
         const x = vx * t;
         const y = vyInit * t - 0.5 * g * t * t;
+
+        //always the coordinates of the canvas x and y
         const drawX = startX + x;
         const drawY = startY - y;
 
+        // stops the animation and returns if the projectile hits the ground or edge of canvas
         if (drawY >= canvas.height - 20 || drawX >= canvas.width) {
           return;
         }
 
+        //stores the trail data and updates
         if (showTrail.checked) {
           trail.push({ x: drawX, y: drawY });
         }
-
+//clears canvas in each frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Draw trail of projectile
@@ -192,6 +248,8 @@
         ctx.strokeStyle = '#333';
         ctx.stroke();
 
+
+        //update info in the panel based on the projectile trail and data
         if (showInfo.checked) {
           infoPanel.style.display = 'block';
           timeValue.textContent = t.toFixed(2);
@@ -201,6 +259,7 @@
           infoPanel.style.display = 'none';
         }
 
+        //allows the animation to continue
         if (isRunning) {
           animationId = requestAnimationFrame(animate);
         } else {
@@ -208,6 +267,7 @@
         }
       }
 
+      //button state 
       if (!isRunning) {
         startBtn.textContent = 'Start';
       } else {
@@ -216,20 +276,31 @@
       }
     }
 
+    //deals with event listeners on start and reset buttons
     startBtn.addEventListener('click', () => {
       isRunning = !isRunning;
       drawProjectile();
     });
 
+    //on click for restart button, it resets the simulation
     restartBtn.addEventListener('click', () => {
       isRunning = false;
       drawProjectile();
     });
-
+//when sliders move, it updates value of inputs
     velocityInput.addEventListener('input', drawProjectile);
     angleInput.addEventListener('input', drawProjectile);
     gravityInput.addEventListener('input', drawProjectile);
 
+// resizes the drawing canvas responsively
+      window.addEventListener('resize', () => {
+      resizeCanvas();
+      drawProjectile();
+    });
+
+    resizeCanvas(); //has the initial call to set size based on screen size
+
+    //draws initial projectile when the page loads
     drawProjectile();
   </script>
 </body>
