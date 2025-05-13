@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import { useNavigate } from 'react-router-dom';
-
+//work dammit
 
 function Quiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Tracks the current question index
